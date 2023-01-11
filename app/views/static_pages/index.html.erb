@@ -1,0 +1,20 @@
+<%= javascript_pack_tag 'index', 'data-turbolinks-track': 'reload' %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center mt-4">To Do List</h1>
+      <div class="filtered-div mb-3">
+          <button id="all">All</button>
+          <button id="remaining">Remaining</button>
+          <button id="completed">Completed</button>
+          <button id="sorted">Sort by ID</button>
+        </div>
+      <div class="row" id="tasks"></div>
+      <form id="create-task">
+          <input id="new-task-content" type="text" placeholder="new task" required />
+          <button>Create</button>
+        </form>
+    </div>
+  </div>
+</div>
