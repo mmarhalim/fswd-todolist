@@ -3,14 +3,45 @@ import $ from 'jquery';
 import {
   indexTasks,
   postTask,
+  deleteTask,
+  markActive,
+  markComplete,
+  toggleCompleted,
+  toggleRemaining
 } from "./requests.js";
 
-indexTasks(function (response) {
-  var htmlString = response.tasks.map(function (task) {
-    return "<div class='col-12 d-flex justify-content-between mb-3 p-2 border rounded task' data-id='" + task.id + "'> \
-      " + task.content + "\
-      <div><button class='delete' data-id='" + task.id + "'>Delete</button><input type='checkbox'></div></div>";
+$(function() {
+
+  $('#create-task').on('submit', function (e) {
+    e.preventDefault();
+    postTask();
   });
 
-  $("#tasks").html(htmlString);
+  $(document).on('click', '.delete', function () {
+    deleteTask($(this).data('id'));
+  });
+
+  $(document).on('change', '.mark-complete', function () {
+    if (this.checked) {
+      markComplete($(this).data('id'));
+    } else {
+      markActive($(this).data('id'));
+    }
+  });
+
+  $(document).on('click', '#all', function () {
+    indexTasks();
+  });
+
+  $(document).on('click', '#remaining', function () {
+    toggleRemaining();
+  });
+
+  $(document).on('click', '#completed', function () {
+    toggleCompleted();
+  });
+
+  indexTasks();
+
 });
+
